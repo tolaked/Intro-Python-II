@@ -1,8 +1,10 @@
 from room import Room
+from player import Player
+import textwrap
 
 # Declare all the rooms
 
-room = {
+rooms = {
     'outside':  Room("Outside Cave Entrance",
                      "North of you, the cave mount beckons"),
 
@@ -24,22 +26,23 @@ earlier adventurers. The only exit is to the south."""),
 
 # Link rooms together
 
-room['outside'].n_to = room['foyer']
-room['foyer'].s_to = room['outside']
-room['foyer'].n_to = room['overlook']
-room['foyer'].e_to = room['narrow']
-room['overlook'].s_to = room['foyer']
-room['narrow'].w_to = room['foyer']
-room['narrow'].n_to = room['treasure']
-room['treasure'].s_to = room['narrow']
+rooms['outside'].n_to = rooms['foyer']
+rooms['foyer'].s_to = rooms['outside']
+rooms['foyer'].n_to = rooms['overlook']
+rooms['foyer'].e_to = rooms['narrow']
+rooms['overlook'].s_to = rooms['foyer']
+rooms['narrow'].w_to = rooms['foyer']
+rooms['narrow'].n_to = rooms['treasure']
+rooms['treasure'].s_to = rooms['narrow']
 
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
-
+player = Player('Tobi',rooms['outside'])
 # Write a loop that:
+print(player.current_room.name)
 #
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
@@ -49,3 +52,26 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+c= 'a'
+while c != 'q':
+    room = None
+    if c == 'n':
+        room = player.current_room.n_to
+    elif c == 's':
+        room = player.current_room.s_to
+    elif c == 'w':
+        room = player.current_room.w_to
+    elif c == 'e':
+        room = player.current_room.e_to
+
+    if room != None:
+        player.current_room = room
+    else:
+        print('You can not move in this direction')
+    
+    print(player.current_room.name)
+    text = textwrap.fill(player.current_room.description)
+    print(text)
+    c = input('Enter any character:')
+
+    
