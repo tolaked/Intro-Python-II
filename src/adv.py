@@ -40,10 +40,11 @@ rooms['treasure'].s_to = rooms['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-player = Player('Tobi',rooms['outside'],['guns','food'])
+player = Player('Tobi',rooms['foyer'],['cat'])
+player.add_item('cat')
+
 # Write a loop that:
-print(player.current_room.name)
-print(player.items)
+# print(player.items)
 #
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
@@ -69,11 +70,13 @@ while c != 'q':
         player.current_room = room
     else:
         print('You can not move in this direction')
+    print('---------------------------------------------------------------------')
+    print(f'Hello {player.name} you are currently at {player.current_room.name}')
     
-    print(player.current_room.name)
-    print(player.current_room.items)
+    print(player.allitems())
     text = textwrap.fill(player.current_room.description)
     print(text)
+    print('---------------------------------------------------------------------')
     c = input('Enter any character:')
 
     

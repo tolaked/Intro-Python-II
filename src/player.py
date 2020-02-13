@@ -8,3 +8,13 @@ class Player:
     
     def add_item(self,item):
         self.items.append(item)
+    
+    def allitems(self):
+        if self.items == None:
+            print(f'there are no items in {self.name}')
+        else:
+            pass
+
+            for i in self.items:
+                output=f'Available items are: {i}'
+                return output
